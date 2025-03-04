@@ -1,12 +1,12 @@
 # Invisibility Cloak (using OpenCV, Manual HSV Adjuster)
 
-This project demonstrates an "Invisibility Cloak" effect using computer vision techniques in Python. It uses OpenCV to capture a video feed from your webcam, allows manual adjustment of HSV (Hue, Saturation, Value) thresholds via trackbars, and then processes the video to replace the area of a cloak with a pre-captured background, creating an invisibility effect.
+This is a Flask-based web application that creates an invisibility cloak effect using OpenCV. The app dynamically detects a chosen cloak color and replaces it with a pre-captured background.
 
 
 ## Features
 
-- **Manual HSV Adjustment:**  
-  Use trackbars to adjust the HSV thresholds for detecting the cloak.
+- **Automatic HSV Adjustment:**  
+  Automatically calculates HSV thresholds for detecting the cloak.
   
 - **Real-time Video Processing:**  
   Processes the live webcam feed and applies an invisibility effect by replacing the cloak area with a captured background.
@@ -20,3 +20,5 @@ This project demonstrates an "Invisibility Cloak" effect using computer vision t
 - Python
 - OpenCV
 - NumPy
+- HTML/CSS/Javascript
+- Flask
