@@ -1,4 +1,4 @@
-# Invisibility Cloak (using OpenCV, Manual HSV Adjuster)
+# Invisibility Cloak (using OpenCV)
 
 This is a Flask-based web application that creates an invisibility cloak effect using OpenCV. The app dynamically detects a chosen cloak color and replaces it with a pre-captured background.
 
