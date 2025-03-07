@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Invisiblity Cloak</title>
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/index.css')}}">
+    </head>
+    <body>
+        <h1 class="main-heading">Welcome to Hogwarts!</h1>
+        <div class="container">
+            
+            <h2 class="subheading">Please read the instructions below:</h2>
+            <ul class="instructions">
+                <li>Step 1: Before clicking on the Go Ahead button, ensure you are in a well lit environment with clear background area.</li>
+                <li>Step 2: Once you click on the Go Ahead button, let the backgrond be captured and stay out of frame for 3 seconds.</li>
+                <li>Step 3: After background is captured, position your cloak at the center and wait for 5 seconds for the invisibilty to activate.</li>
+                <li>Click on the Go Ahead button and see the magic happen!</li>
+            </ul>
+            
+        </div>
+        <div class="button-container">
+            <a href ="{{url_for('camera')}}" class="btn">Go Ahead</a>
+        </div>
+    </body>
+</html>

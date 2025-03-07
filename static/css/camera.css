@@ -1,0 +1,82 @@
+body {
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    background: url("../images/castle-of-hogwarts.jpg") no-repeat center center/cover;
+    color: #d9d0d0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    max-width: 700px;
+    backdrop-filter: blur(6px);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(to right, #f5d76e, #d9b232, #8a5a16);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+img {
+    border: 4px solid goldenrod;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(184, 134, 11, 0.5);
+}
+
+#log-box {
+    width: 680px;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(184, 134, 11, 0.5);
+    border: 2px solid goldenrod;
+    color: lime;
+    text-align: left;
+    font-family: monospace;
+    max-height: 250px;
+    overflow-y: auto;
+    margin: 20px auto;
+}
+
+.button-container {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(184, 134, 11, 0.5);
+    display: inline-block;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-family: "Cinzel", serif;
+    color: rgb(201, 189, 189);
+    background-color: #1b504e;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid #1b504e;
+    font-weight: bold;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #046d7b, #6e501a);
+    color: white;
+    border: 2px solid white;
+}

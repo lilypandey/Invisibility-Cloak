@@ -1,6 +1,17 @@
+from flask import Flask, render_template, Response, jsonify
 import cv2
 import numpy as np
 import time
+
+app = Flask(__name__)
+
+log_messages =[]
+cap = None
+
+def log(message):
+    global log_messages
+    log_messages.append(message)
+    print(message)
 
 def auto_calibrate(hsv_frame, tol_h=10, tol_s =50 , tol_v=50):
     height, width = hsv_frame.shape[:2]
@@ -20,7 +31,7 @@ def auto_calibrate(hsv_frame, tol_h=10, tol_s =50 , tol_v=50):
 
 def capture_background(cap, delay=0.05, num_frames=60):
     frames=[]
-    print("Capturing Background. No one should be in frame")
+    log("Capturing Background. No one should be in frame for next three seconds.")
     for i in range(num_frames):
         ret, frame = cap.read()
         if ret:
@@ -58,48 +69,70 @@ def process_frame(frame, background, lower_hsv, upper_hsv, kernel):
 
     return output
 
-def main():
+def generate_frames():
+    global cap
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
-        print("Error: Camera Not Found")
-        exit()
+        log("Error: Camera Not Found")
+        return
     
     kernel = np.ones((3,3), np.uint8)
 
     init_frame = capture_background(cap, delay = 0.05, num_frames = 60)
     if init_frame is None:
-        print("Failed to Capture Background")
-        exit()
+        log("Failed to Capture Background")
+        return
 
-    print("Background Captured.")
-    print("Please position your cloak in the center of frame for calibration and wait for 5 seconds")
+    log("Background Captured.")
+    log("Please position your cloak in the center of frame for calibration and wait for 5 seconds")
     time.sleep(5)
 
     ret, frame = cap.read()
 
     if not ret:
-        print("Failed to capture frame for calibration")
-        exit()
+        log("Failed to capture frame for calibration")
+        return
 
     hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     lower_hsv, upper_hsv = auto_calibrate(hsv_frame, tol_h=10, tol_s =50 , tol_v=50)
 
-    print("Invisibilty effect is active.")
+    log("Invisibilty effect is active.")
     while True:
         ret, frame = cap.read()
         if not ret:
-            print("Error, can't capture frame")
+            log("Error, can't capture frame")
             break
         
         final = process_frame(frame, init_frame, lower_hsv, upper_hsv, kernel)
-        cv2.putText(final, "Invisibility active! Press  'q' to exit.", (10, 30), cv2.FONT_ITALIC, 1, (0,0,0), 2, cv2.LINE_AA)
-        cv2.imshow("Harry's Invisibility Cloak", final)
+        _, buffer = cv2.imencode('.jpg', final)
+        frame_bytes = buffer.tobytes()
+        yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n'+ frame_bytes + b'\r\n')
 
-        if cv2.waitKey(3) == ord('q'):
-            break
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-    cv2.destroyAllWindows()
-    cap.release()
+@app.route('/camera')
+def camera():
+    return render_template('camera.html')
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/stop_stream', methods=['POST'])
+def stop_stream():
+    global cap, log_messages
+    if cap is not None:
+        cap.release()
+        cv2.destroyAllWindows()
+        cap = None
+    log_messages = []
+    return '', 204
+
+@app.route('/logs')
+def get_logs():
+    return jsonify(log_messages)
 
 if __name__ == "__main__":
-    main()
+    app.run(host="0.0.0.0", port=10000)

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Invisiblity Cloak Live</title>
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/camera.css')}}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Harry Potter's Invisibility Cloak!</h1>
+            <img src="{{url_for('video_feed')}}" width="640" height="480">
+            <div id="log-box"></div>
+            <div class="button-container">
+                <button onclick="stopStreamAndGoBack()" class="btn">Back</button>
+            </div>
+        </div>
+        <script>
+            function stopStreamAndGoBack(){
+                fetch('/stop_stream', {method: 'POST'})
+                    .then(()=>{
+                        window.location.href='/';
+                    })
+            }
+            function fetchLogs() {
+                fetch('/logs')
+                    .then(response => response.json())
+                    .then(data => {
+                        let logBox = document.getElementById("log-box");
+                        logBox.innerHTML = data.length > 0 ? data[data.length -1] : "";
+                    });
+            }
+            window.onload =function(){
+                document.getElementById("log-box").innerHTML = "";
+            }
+            setInterval(fetchLogs, 500);
+        </script>
+    </body>
+</html>
