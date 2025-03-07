@@ -80,3 +80,33 @@ img {
     color: white;
     border: 2px solid white;
 }
+
+/* Mobile responsiveness */
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 2rem; /* Reduce font size */
+    }
+
+    .container {
+        width: 90%; /* Instead of fixed 700px, use 90% of the screen */
+        padding: 20px; /* Reduce padding */
+    }
+
+    img {
+        width: 100%; /* Make the image responsive */
+        height: auto;
+        max-width: 480px; /* Ensure it doesn't stretch too much */
+    }
+
+    #log-box {
+        width: 90%; /* Adjust log box to fit smaller screens */
+        max-width: 480px;
+        font-size: 0.9rem; /* Reduce text size slightly */
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 1rem; /* Adjust button size */
+        padding: 8px 15px;
+    }
+}

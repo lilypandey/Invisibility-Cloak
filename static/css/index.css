@@ -93,3 +93,27 @@ body {
     color: white;
     border: 2px solid white;
 }
+
+@media screen and (max-width: 600px) {
+    .main-heading {
+        font-size: 2.2rem; /* Reduce font size */
+    }
+
+    .container {
+        width: 90%; /* Instead of fixed 500px, it will take up 90% of screen */
+        padding: 20px; /* Reduce padding */
+    }
+
+    .subheading {
+        font-size: 1.4rem; /* Slightly smaller for readability */
+    }
+
+    .instructions li {
+        font-size: 1rem; /* Reduce font size */
+    }
+
+    .btn {
+        font-size: 1rem; /* Adjust button size */
+        padding: 8px 15px;
+    }
+}
